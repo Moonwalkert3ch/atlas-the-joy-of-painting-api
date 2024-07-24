@@ -1,2 +1,7 @@
 # created by virtualenv automatically
 node_modules
+*.cfg
+lib
+etc/*
+bin
+.env
