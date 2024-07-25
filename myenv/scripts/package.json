@@ -1,6 +1,9 @@
 {
   "dependencies": {
+    "async": "^3.2.5",
     "csv-parser": "^3.0.0",
-    "moment": "^2.30.1"
+    "dotenv": "^16.4.5",
+    "moment": "^2.30.1",
+    "pg": "^8.12.0"
   }
 }
