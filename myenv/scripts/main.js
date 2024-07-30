@@ -1,19 +1,19 @@
 const { parseData } = require('./parseData');
 const { insertPaintingData } = require('./insertData');
 
-// run clean and inserted data 
-async function run() {
+const main = async () => {
     try {
-        const parsedData = await parseData();
-
-        for (const painting of parsedData) {
-            await insertPaintingData(painting);
+        const { episodes } = await parseData();
+        
+        // Assuming episodes data is in the expected format
+        for (const episode of episodes) {
+            await insertPaintingData(episode);
         }
 
-        console.log('Data inserted successfully');
+        console.log('Data insertion complete.');
     } catch (error) {
-        console.error('Error inserting data:', error);
+        console.error('Error:', error);
     }
-}
+};
 
-run();
+main();
