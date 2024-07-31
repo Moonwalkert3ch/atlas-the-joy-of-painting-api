@@ -1,13 +1,11 @@
 const { parseData } = require('./parseData');
-const { insertPaintingData } = require('./insertData');
+const { insertPaintingData } = require('./insertColors');
 
 const main = async () => {
     try {
         const { episodes } = await parseData();
-        
-        // Assuming episodes data is in the expected format
-        for (const episode of episodes) {
-            await insertPaintingData(episode);
+        for (const [episode_id, data] of Object.entries(episodes)) {
+            await insertPaintingData(data);
         }
 
         console.log('Data insertion complete.');

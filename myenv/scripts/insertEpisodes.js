@@ -11,14 +11,11 @@ const cleanData = (data) => {
     }));
 };
 
-
 // Function to insert painting data into PostgreSQL
 const insertPaintingData = async (paintingData) => {
     const client = await pool.connect();
     try {
         await client.query('BEGIN');
-
-        console.log('Inserting data:', paintingData); // Debugging line
 
         const insertPaintingText = `
         INSERT INTO episodes (date, title, painting_index, season, episode) 
@@ -30,20 +27,27 @@ const insertPaintingData = async (paintingData) => {
             season = EXCLUDED.season,
             episode = EXCLUDED.episode`;
 
-        const res = await client.query(insertPaintingText, [
+        console.log('Inserting data:', paintingData);
+
+        const values = [
             paintingData.date,
             paintingData.title,
             paintingData.painting_index,
             paintingData.season,
             paintingData.episode
-        ]);
+        ];
 
-        console.log('Insert result:', res); // Debugging line
+        console.log('Insert query:', insertPaintingText);
+        console.log('Values:', values);
+
+        const res = await client.query(insertPaintingText, values);
+
+        console.log('Insert result:', res);
 
         await client.query('COMMIT');
     } catch (err) {
         await client.query('ROLLBACK');
-        console.error('Error during transaction:', err);
+        console.error('Error during transaction. Data:', paintingData, 'Error:', err);
         throw err;
     } finally {
         client.release();
